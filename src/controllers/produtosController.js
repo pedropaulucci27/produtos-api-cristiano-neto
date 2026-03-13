@@ -40,17 +40,30 @@ function criar(req, res) {
 }
 
 function atualizar(req, res) {
-  // TODO
+  const id = Number(req.params.id);
+  const index = produtos.findIndex((p) => p.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ erro: "Produto não encontrado" });
+  }
+
+  const { nome, descricao, preco, categoria, estoque, ativo } = req.body;
+
+  produtos[index] = {
+    id,
+    nome,
+    descricao,
+    preco,
+    categoria,
+    estoque,
+    ativo
+  };
+
+  return res.status(200).json(produtos[index]);
 }
 
 function remover(req, res) {
   // TODO
 }
 
-module.exports = {
-  listar,
-  buscarPorId,
-  criar,
-  atualizar,
-  remover
-};
+module.exports = { listar, buscarPorId, criar, atualizar, remover };
