@@ -63,7 +63,16 @@ function atualizar(req, res) {
 }
 
 function remover(req, res) {
-  // TODO
+  const id = Number(req.params.id);
+  const index = produtos.findIndex((p) => p.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ erro: "Produto não encontrado" });
+  }
+
+  produtos.splice(index, 1);
+
+  return res.status(204).send();
 }
 
 module.exports = { listar, buscarPorId, criar, atualizar, remover };
